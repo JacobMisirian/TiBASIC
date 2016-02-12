@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TIBASIC/Parser/Nodes/ExpressionNode.cs">
+    <Files>
+      <File FileName="TIBASIC/Interpreter/Interpreter.cs" Line="130" Column="104" />
+      <File FileName="TIBASIC/Program.cs" Line="17" Column="109" />
+      <File FileName="TIBASIC/Lexer/Scanner.cs" Line="88" Column="60" />
+      <File FileName="TIBASIC/Parser/Nodes/ExpressionNode.cs" Line="91" Column="95" />
+      <File FileName="TIBASIC/Parser/Nodes/StatementNode.cs" Line="20" Column="83" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

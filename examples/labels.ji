@@ -1,0 +1,6 @@
+0 -> x
+Lbl a
+x + 1 -> x
+Disp x
+If x < 10
+	Goto a

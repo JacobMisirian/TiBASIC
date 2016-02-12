@@ -1,0 +1,12 @@
+0 -> x
+While x < 100 Do
+	x + 1 -> x
+	If (x % 15) = 0
+		Disp "FizzBuzz"
+	Else If (x % 3) = 0
+		Disp "Fizz"
+	Else If (x % 5) = 0
+		Disp "Buzz"
+	Else
+		Disp x
+End
