@@ -4,8 +4,15 @@ using TIBASIC.Lexer;
 
 namespace TIBASIC.Parser
 {
+    /// <summary>
+    /// Statement node.
+    /// </summary>
     public class StatementNode: AstNode
     {
+        /// <summary>
+        /// Parse the specified parser.
+        /// </summary>
+        /// <param name="parser">Parser.</param>
         public static AstNode Parse(Parser parser)
         {
             if (parser.MatchToken(TokenType.Identifier, "If"))

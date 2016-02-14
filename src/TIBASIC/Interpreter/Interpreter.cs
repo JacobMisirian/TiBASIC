@@ -1,18 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 using TIBASIC.Lexer;
 using TIBASIC.Parser;
 
 namespace TIBASIC.Interpreter
 {
+    /// <summary>
+    /// Ti-BASIC Interpreter.
+    /// </summary>
     public class Interpreter
     {
         private int position = 0;
-
+        /// <summary>
+        /// Interpret the specified ast.
+        /// </summary>
+        /// <param name="ast">Ast.</param>
         public void Interpret(AstNode ast)
         {
             scanLabels(ast);
+            foreach (Dictionary<string, InternalFunction> entries in loadFunctions())
+                foreach (KeyValuePair<string, InternalFunction> entry in entries)
+                    variables.Add(entry.Key, entry.Value);
+
             for (position = 0; position < ast.Children.Count; position++)
                 executeStatement(ast.Children[position]);
         }
@@ -77,6 +88,17 @@ namespace TIBASIC.Interpreter
                 return ((NumberNode)node).Number;
             else if (node is StringNode)
                 return ((StringNode)node).String;
+            else if (node is FunctionCallNode)
+            {
+                FunctionCallNode functionNode = (FunctionCallNode)node;
+                IFunction target = evaluateNode(functionNode.Target) as IFunction;
+                if (target == null)
+                    throw new Exception("Attempt to run a non-valid function!");
+                object[] arguments = new object[functionNode.Arguments.Children.Count];
+                for (int i = 0; i < functionNode.Arguments.Children.Count; i++)
+                    arguments[i] = evaluateNode(functionNode.Arguments.Children[i]);
+                return target.Invoke(arguments);
+            }
             else if (node is IdentifierNode)
             {
                 string identifier = ((IdentifierNode)node).Identifier;
@@ -143,7 +165,32 @@ namespace TIBASIC.Interpreter
             return Convert.ToDouble(evaluateNode(binaryNode.Right));
         }
 
-        private Dictionary<string, object> variables = new Dictionary<string, object>();
+        private Dictionary<string, object> variables = new Dictionary<string, object>()
+        {
+            { "True", true },
+            { "False", false },
+            { "Null", null }
+        };
         private Dictionary<string, int> labels = new Dictionary<string, int>();
+
+        private List<Dictionary<string, InternalFunction>> loadFunctions(string path = "")
+        {
+            List<Dictionary<string, InternalFunction>> result = new List<Dictionary<string, InternalFunction>>();
+            Assembly testAss;
+
+            if (path != "")
+                testAss = Assembly.LoadFrom(path);
+            else
+                testAss = Assembly.GetExecutingAssembly();
+
+            foreach (Type type in testAss.GetTypes())
+                if (type.GetInterface(typeof(ILibrary).FullName) != null)
+            {
+                ILibrary ilib = (ILibrary)Activator.CreateInstance(type);
+                result.Add(ilib.GetFunctions());
+            }
+
+            return result;
+        }
     }
 }

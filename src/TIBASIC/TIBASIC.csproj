@@ -55,6 +55,8 @@
     <Compile Include="Interpreter\Interpreter.cs" />
     <Compile Include="Parser\Nodes\LblNode.cs" />
     <Compile Include="Parser\Nodes\GotoNode.cs" />
+    <Compile Include="Interpreter\InternalFunction.cs" />
+    <Compile Include="Interpreter\InternalFunctions\StandardLibrary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -62,5 +64,6 @@
     <Folder Include="Parser\" />
     <Folder Include="Parser\Nodes\" />
     <Folder Include="Interpreter\" />
+    <Folder Include="Interpreter\InternalFunctions\" />
   </ItemGroup>
 </Project>

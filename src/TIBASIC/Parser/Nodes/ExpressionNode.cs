@@ -4,8 +4,15 @@ using TIBASIC.Lexer;
 
 namespace TIBASIC.Parser
 {
+    /// <summary>
+    /// Expression node.
+    /// </summary>
     public class ExpressionNode: AstNode
     {
+        /// <summary>
+        /// Parse the specified parser.
+        /// </summary>
+        /// <param name="parser">Parser.</param>
         public static AstNode Parse(Parser parser)
         {
             return parseAssignment(parser);
@@ -125,7 +132,11 @@ namespace TIBASIC.Parser
         private static AstNode parseFunctionCall(Parser parser, AstNode left)
         {
             if (parser.MatchToken(TokenType.Parentheses, "("))
-                return parseFunctionCall(parser, new FunctionCallNode(left, ArgListNode.Parse(parser)));
+            {
+                var functionCall = parseFunctionCall(parser, new FunctionCallNode(left, ArgListNode.Parse(parser)));
+                parser.ExpectToken(TokenType.Parentheses, ")");
+                return functionCall;
+            }
             else
                 return left;
         }
@@ -137,7 +148,7 @@ namespace TIBASIC.Parser
             else if (parser.AcceptToken(TokenType.Parentheses, "("))
             {
                 AstNode statement = ExpressionNode.Parse(parser);
-                parser.ExpectToken(TokenType.Parentheses, ")");
+              //  parser.ExpectToken(TokenType.Parentheses, ")");
                 return statement;
             }
             else if (parser.MatchToken(TokenType.Identifier, "Then"))
@@ -182,4 +193,3 @@ namespace TIBASIC.Parser
         }
     }
 }
-

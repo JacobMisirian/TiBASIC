@@ -9,7 +9,14 @@ namespace TIBASIC
 {
     class MainClass
     {
+        /// <summary>
+        /// The interpreter.
+        /// </summary>
         public static Interpreter.Interpreter interpreter = new TIBASIC.Interpreter.Interpreter();
+        /// <summary>
+        /// The entry point of the program, where the program control starts and ends.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
         public static void Main(string[] args)
         {
             if (args.Length <= 0)

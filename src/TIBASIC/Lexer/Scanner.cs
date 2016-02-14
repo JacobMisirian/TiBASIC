@@ -3,15 +3,21 @@ using System.Collections.Generic;
 
 namespace TIBASIC.Lexer
 {
+    /// <summary>
+    /// Scanner.
+    /// </summary>
     public class Scanner
     {
-        public List<Token> result = new List<Token>();
+        private List<Token> result = new List<Token>();
         private string code;
         private int position = 0;
 
         private string peekLetter { get { return ((char)code[position]).ToString(); } }
         private string readLetter { get { return ((char)code[position++]).ToString(); } }
-
+        /// <summary>
+        /// Scan the specified code for Tokens.
+        /// </summary>
+        /// <param name="code">Code.</param>
         public List<Token> Scan(string code)
         {
             this.code = code;
