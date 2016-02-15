@@ -62,6 +62,7 @@
     <Compile Include="Interpreter\InternalFunctions\StandardLibrary.cs" />
     <Compile Include="Interpreter\Events\ConsoleOutputEventArgs.cs" />
     <Compile Include="Interpreter\Events\ConsoleInputEventArgs.cs" />
+    <Compile Include="Interpreter\Events\ConsoleReadEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />

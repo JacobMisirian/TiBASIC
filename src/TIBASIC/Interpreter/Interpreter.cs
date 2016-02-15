@@ -138,6 +138,8 @@ namespace TIBASIC.Interpreter
             else if (node is IdentifierNode)
             {
                 string identifier = ((IdentifierNode)node).Identifier;
+                if (identifier == "getKey")
+                    return readLine(true);
                 if (variables.ContainsKey(identifier))
                     return variables[identifier];
                 else
@@ -191,9 +193,12 @@ namespace TIBASIC.Interpreter
             }
         }
 
-        private string readLine()
+        private string readLine(bool getKey = false)
         {
-            OnConsoleInput(new ConsoleInputEventArgs());
+            if (getKey)
+                OnConsoleRead(new ConsoleReadEventArgs());
+            else
+                OnConsoleInput(new ConsoleInputEventArgs());
             while (Input == "")
                 Thread.Sleep(15);
             string temp = Input;
@@ -211,15 +216,7 @@ namespace TIBASIC.Interpreter
         {
             return Convert.ToDouble(evaluateNode(binaryNode.Right));
         }
-
-        private Dictionary<string, object> variables = new Dictionary<string, object>()
-        {
-            { "True", true },
-            { "False", false },
-            { "Null", null }
-        };
-        private Dictionary<string, int> labels = new Dictionary<string, int>();
-
+        
         private List<Dictionary<string, InternalFunction>> loadFunctions(string path = "")
         {
             List<Dictionary<string, InternalFunction>> result = new List<Dictionary<string, InternalFunction>>();
@@ -254,5 +251,22 @@ namespace TIBASIC.Interpreter
             if (handler != null)
                 handler(this, e);
         }
+        public event EventHandler<ConsoleReadEventArgs> ConsoleRead;
+        protected virtual void OnConsoleRead(ConsoleReadEventArgs e)
+        {
+            EventHandler<ConsoleReadEventArgs> handler = ConsoleRead;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        private Dictionary<string, object> variables = new Dictionary<string, object>()
+        {
+            { "True", true },
+            { "False", false },
+            { "Null", null },
+            { "Pi", Math.PI },
+            { "e", Math.E }
+        };
+        private Dictionary<string, int> labels = new Dictionary<string, int>();
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace TIBASIC
+namespace TIBASIC.Interpreter
 {
     public class ConsoleOutputEventArgs : EventArgs
     {

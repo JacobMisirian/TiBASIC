@@ -2,7 +2,7 @@ using System;
 
 namespace TIBASIC.Interpreter
 {
-    public class ConsoleInputEventArgs : EventArgs
+    public class ConsoleReadEventArgs : EventArgs
     {
     }
 }

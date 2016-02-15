@@ -20,6 +20,7 @@ namespace TIBASIC
         public static void Main(string[] args)
         {
             interpreter.ConsoleInput += interpreter_OnConsoleInput;
+            interpreter.ConsoleRead += interpreter_OnConsoleRead;
             interpreter.ConsoleOutput += interpreter_OnConsoleOutput;
             if (args.Length <= 0)
                 repl();
@@ -45,6 +46,13 @@ namespace TIBASIC
         private static void interpreter_OnConsoleInput(object sender, ConsoleInputEventArgs e)
         {
             interpreter.Input = Console.ReadLine();
+        }
+
+        private static void interpreter_OnConsoleRead(object sender, ConsoleReadEventArgs e)
+        {
+            string c = Console.Read().ToString();
+            Console.Write("\b");
+            interpreter.Input = c;
         }
     }
 }
