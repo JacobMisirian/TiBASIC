@@ -60,7 +60,12 @@
     <Compile Include="Parser\Nodes\GotoNode.cs" />
     <Compile Include="Interpreter\InternalFunction.cs" />
     <Compile Include="Interpreter\InternalFunctions\StandardLibrary.cs" />
+    <Compile Include="Interpreter\Events\ConsoleOutputEventArgs.cs" />
+    <Compile Include="Interpreter\Events\ConsoleInputEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interpreter\Events\" />
+  </ItemGroup>
 </Project>

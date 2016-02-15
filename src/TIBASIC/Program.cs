@@ -19,6 +19,8 @@ namespace TIBASIC
         /// <param name="args">The command-line arguments.</param>
         public static void Main(string[] args)
         {
+            interpreter.ConsoleInput += interpreter_OnConsoleInput;
+            interpreter.ConsoleOutput += interpreter_OnConsoleOutput;
             if (args.Length <= 0)
                 repl();
             interpreter.Interpret(new Parser.Parser(new Scanner().Scan(File.ReadAllText(args[0]))).Parse());
@@ -33,6 +35,16 @@ namespace TIBASIC
                 //    Console.WriteLine(token.TokenType + "\t" + token.Value);
                 interpreter.Interpret(new Parser.Parser(new Scanner().Scan(source)).Parse());
             }
+        }
+
+        private static void interpreter_OnConsoleOutput(object sender, ConsoleOutputEventArgs e)
+        {
+            Console.Write(e.Output);
+        }
+
+        private static void interpreter_OnConsoleInput(object sender, ConsoleInputEventArgs e)
+        {
+            interpreter.Input = Console.ReadLine();
         }
     }
 }

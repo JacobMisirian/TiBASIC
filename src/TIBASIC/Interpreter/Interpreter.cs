@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 
 using TIBASIC.Lexer;
 using TIBASIC.Parser;
@@ -12,9 +13,11 @@ namespace TIBASIC.Interpreter
     /// </summary>
     public class Interpreter
     {
+        public string Input { get; set; }
         private int position = 0;
         public Interpreter()
         {
+            Input = "";
             foreach (Dictionary<string, InternalFunction> entries in loadFunctions())
                 foreach (KeyValuePair<string, InternalFunction> entry in entries)
                     variables.Add(entry.Key, entry.Value);
@@ -78,8 +81,8 @@ namespace TIBASIC.Interpreter
             {
                 var dispNode = (DispNode)node;
                 foreach (AstNode subNode in dispNode.Args.Children)
-                    Console.Write(evaluateNode(subNode));
-                Console.WriteLine();
+                    OnConsoleOutput(new ConsoleOutputEventArgs { Output = evaluateNode(subNode).ToString() });
+                OnConsoleOutput(new ConsoleOutputEventArgs { Output = "\n" });
             }
             else if (node is InputNode)
             {
@@ -188,6 +191,17 @@ namespace TIBASIC.Interpreter
             }
         }
 
+        private string readLine()
+        {
+            OnConsoleInput(new ConsoleInputEventArgs());
+            while (Input == "")
+                Thread.Sleep(15);
+            string temp = Input;
+            Input = "";
+
+            return temp;
+        }
+
         private double getLeft(BinaryOpNode binaryNode)
         {
             return Convert.ToDouble(evaluateNode(binaryNode.Left));
@@ -224,6 +238,21 @@ namespace TIBASIC.Interpreter
             }
 
             return result;
+        }
+
+        public event EventHandler<ConsoleOutputEventArgs> ConsoleOutput;
+        protected virtual void OnConsoleOutput(ConsoleOutputEventArgs e)
+        {
+            EventHandler<ConsoleOutputEventArgs> handler = ConsoleOutput;
+            if (handler != null)
+                handler(this, e);
+        }
+        public event EventHandler<ConsoleInputEventArgs> ConsoleInput;
+        protected virtual void OnConsoleInput(ConsoleInputEventArgs e)
+        {
+            EventHandler<ConsoleInputEventArgs> handler = ConsoleInput;
+            if (handler != null)
+                handler(this, e);
         }
     }
 }
