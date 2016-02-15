@@ -1,0 +1,5 @@
+C:\Users\misiriaj\TIBASIC\src\TIBASIC\obj\x86\Debug\TIBASIC.csprojResolveAssemblyReference.cache
+C:\Users\misiriaj\TIBASIC\src\TIBASIC\bin\Debug\TIBASIC.exe
+C:\Users\misiriaj\TIBASIC\src\TIBASIC\bin\Debug\TIBASIC.pdb
+C:\Users\misiriaj\TIBASIC\src\TIBASIC\obj\x86\Debug\TIBASIC.exe
+C:\Users\misiriaj\TIBASIC\src\TIBASIC\obj\x86\Debug\TIBASIC.pdb

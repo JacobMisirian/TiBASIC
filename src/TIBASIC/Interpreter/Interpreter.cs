@@ -13,16 +13,20 @@ namespace TIBASIC.Interpreter
     public class Interpreter
     {
         private int position = 0;
+        public Interpreter()
+        {
+            foreach (Dictionary<string, InternalFunction> entries in loadFunctions())
+                foreach (KeyValuePair<string, InternalFunction> entry in entries)
+                    variables.Add(entry.Key, entry.Value);
+        }
         /// <summary>
         /// Interpret the specified ast.
         /// </summary>
         /// <param name="ast">Ast.</param>
         public void Interpret(AstNode ast)
         {
+            labels = new Dictionary<string, int>();
             scanLabels(ast);
-            foreach (Dictionary<string, InternalFunction> entries in loadFunctions())
-                foreach (KeyValuePair<string, InternalFunction> entry in entries)
-                    variables.Add(entry.Key, entry.Value);
 
             for (position = 0; position < ast.Children.Count; position++)
                 executeStatement(ast.Children[position]);
@@ -61,6 +65,14 @@ namespace TIBASIC.Interpreter
                 var whileNode = (WhileNode)node;
                 while ((bool)evaluateNode(whileNode.Predicate))
                     executeStatement(whileNode.Body);
+            }
+            else if (node is ForNode)
+            {
+                var forNode = (ForNode)node;
+                if (!variables.ContainsKey(forNode.Variable))
+                    variables.Add(forNode.Variable, 0);
+                for (variables[forNode.Variable] = evaluateNode(forNode.Start); Convert.ToDouble(variables[forNode.Variable]) < Convert.ToDouble(evaluateNode(forNode.End)); variables[forNode.Variable] = Convert.ToDouble(variables[forNode.Variable]) + Convert.ToDouble(evaluateNode(forNode.Step)))
+                    executeStatement(forNode.Body);
             }
             else if (node is DispNode)
             {

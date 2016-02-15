@@ -19,6 +19,8 @@ namespace TIBASIC.Parser
                 return ConditionalNode.Parse(parser);
             else if (parser.MatchToken(TokenType.Identifier, "While"))
                 return WhileNode.Parse(parser);
+            else if (parser.MatchToken(TokenType.Identifier, "For"))
+                return ForNode.Parse(parser);
             else if (parser.MatchToken(TokenType.Identifier, "Disp"))
                 return DispNode.Parse(parser);
             else if (parser.AcceptToken(TokenType.Identifier, "Lbl"))
