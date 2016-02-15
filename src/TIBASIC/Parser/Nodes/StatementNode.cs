@@ -27,6 +27,8 @@ namespace TIBASIC.Parser
                 return InputNode.Parse(parser);
             else if (parser.MatchToken(TokenType.Identifier, "Prompt"))
                 return PromptNode.Parse(parser);
+            else if (parser.MatchToken(TokenType.Identifier, "Prgm"))
+                return PrgmNode.Parse(parser);
             else if (parser.AcceptToken(TokenType.Identifier, "Lbl"))
                 return new LblNode(parser.ExpectToken(TokenType.Identifier).Value);
             else if (parser.AcceptToken(TokenType.Identifier, "Goto"))

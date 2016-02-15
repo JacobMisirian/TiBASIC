@@ -1,0 +1,5 @@
+/home/reagan/TIBASIC/src/TIBASIC/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/reagan/TIBASIC/src/TIBASIC/bin/Debug/TIBASIC.exe.mdb
+/home/reagan/TIBASIC/src/TIBASIC/bin/Debug/TIBASIC.exe
+/home/reagan/TIBASIC/src/TIBASIC/obj/x86/Debug/TIBASIC.exe
+/home/reagan/TIBASIC/src/TIBASIC/obj/x86/Debug/TIBASIC.exe.mdb

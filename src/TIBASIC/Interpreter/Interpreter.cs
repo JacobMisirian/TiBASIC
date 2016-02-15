@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 
@@ -105,6 +106,8 @@ namespace TIBASIC.Interpreter
                     variables.Add(variable, Console.ReadLine());
                 }
             }
+            else if (node is PrgmNode)
+                Interpret(new Parser.Parser(new Scanner().Scan(File.ReadAllText(((PrgmNode)node).PrgmPath))).Parse());
             else if (node is LblNode)
                 ;
             else if (node is GotoNode)
