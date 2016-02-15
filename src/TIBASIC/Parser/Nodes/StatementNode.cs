@@ -23,6 +23,8 @@ namespace TIBASIC.Parser
                 return ForNode.Parse(parser);
             else if (parser.MatchToken(TokenType.Identifier, "Disp"))
                 return DispNode.Parse(parser);
+            else if (parser.MatchToken(TokenType.Identifier, "Input"))
+                return InputNode.Parse(parser);
             else if (parser.AcceptToken(TokenType.Identifier, "Lbl"))
                 return new LblNode(parser.ExpectToken(TokenType.Identifier).Value);
             else if (parser.AcceptToken(TokenType.Identifier, "Goto"))
