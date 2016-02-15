@@ -91,6 +91,17 @@ namespace TIBASIC.Interpreter
                     variables.Add(variable, Console.ReadLine());
                 }
             }
+            else if (node is PromptNode)
+            {
+                foreach (AstNode subNode in ((PromptNode)node).Variables.Children)
+                {
+                    string variable = ((IdentifierNode)subNode).Identifier;
+                    if (variables.ContainsKey(variable))
+                        variables.Remove(variable);
+                    Console.Write(variable + "? ");
+                    variables.Add(variable, Console.ReadLine());
+                }
+            }
             else if (node is LblNode)
                 ;
             else if (node is GotoNode)

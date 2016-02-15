@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Parser\Nodes\ForNode.cs" />
     <Compile Include="Parser\Nodes\InputNode.cs" />
+    <Compile Include="Parser\Nodes\PromptNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lexer\Token.cs" />
