@@ -70,6 +70,13 @@ namespace TIBASIC.Interpreter
                 while ((bool)evaluateNode(whileNode.Predicate))
                     executeStatement(whileNode.Body);
             }
+            else if (node is RepeatNode)
+            {
+                RepeatNode repeatNode = (RepeatNode)node;
+                do
+                    executeStatement(repeatNode.Body);
+                while (!(bool)evaluateNode(repeatNode.Predicate));
+            }
             else if (node is ForNode)
             {
                 var forNode = (ForNode)node;

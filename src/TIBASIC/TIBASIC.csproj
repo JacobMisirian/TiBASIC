@@ -64,6 +64,7 @@
     <Compile Include="Interpreter\Events\ConsoleInputEventArgs.cs" />
     <Compile Include="Interpreter\Events\ConsoleReadEventArgs.cs" />
     <Compile Include="Parser\Nodes\PrgmNode.cs" />
+    <Compile Include="Parser\Nodes\RepeatNode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
