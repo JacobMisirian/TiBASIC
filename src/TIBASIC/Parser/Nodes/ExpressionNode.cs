@@ -134,7 +134,7 @@ namespace TIBASIC.Parser
             if (parser.MatchToken(TokenType.Parentheses, "("))
             {
                 var functionCall = parseFunctionCall(parser, new FunctionCallNode(left, ArgListNode.Parse(parser)));
-                parser.ExpectToken(TokenType.Parentheses, ")");
+                //parser.ExpectToken(TokenType.Parentheses, ")");
                 return functionCall;
             }
             else
@@ -148,7 +148,7 @@ namespace TIBASIC.Parser
             else if (parser.AcceptToken(TokenType.Parentheses, "("))
             {
                 AstNode statement = ExpressionNode.Parse(parser);
-              //  parser.ExpectToken(TokenType.Parentheses, ")");
+                parser.ExpectToken(TokenType.Parentheses, ")");
                 return statement;
             }
             else if (parser.MatchToken(TokenType.Identifier, "Then"))
